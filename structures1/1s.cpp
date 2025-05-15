@@ -1,25 +1,25 @@
 #include <iostream>
 using namespace std;
 
-int evklid (int a, int b, int &x, int &y) {
+long long evklid(long long a, long long b, long long &x, long long &y) {
     if (a == 0) {
         x = 0;
         y = 1;
         return b;
     }
-    int x1, y1;
-    int gcd = evklid (b % a, a, x1, y1);
+    long long x1, y1;
+    long long gcd = evklid(b % a, a, x1, y1);
     x = y1 - (b / a) * x1;
     y = x1;
     return gcd;
 }
 
 int main() {
-    int a, b, c;
+    long long a, b, c;
     cin >> a >> b >> c;
 
-    int x, y;
-    int gcd = evklid (a, b, x, y);
+    long long x, y;
+    long long gcd = evklid(a, b, x, y);
 
     if (c % gcd != 0) {
         cout << "Impossible" << endl;
@@ -29,7 +29,10 @@ int main() {
     x *= (c / gcd);
     y *= (c / gcd);
 
-    int k = (x * gcd) / b;
+    long long k = x / (b / gcd);
+    if (x < 0 && (x % (b / gcd) != 0)) {
+        k--;
+    }
     x -= k * (b / gcd);
     y += k * (a / gcd);
 
